@@ -24,10 +24,10 @@ const Detail = ( { exerciseDetail }) => {
         <img src={gifUrl} alt={name} loading='lazy' className='detail-image' />
         <Stack sx={{ gap: { lg: '35px', xs: '20px' }}}>
             <Typography variant='h3' fontWeight='bolder'>
-                {name}
+            <span style={{ color: '#ff2625'}}> {name} </span>
             </Typography>
             <Typography variant='h6'>
-                Exercises keep you strong. <span style={{fontWeight: 'bolder'}}>{name} {` `}</span>
+                Exercises keep you strong. <span style={{fontWeight: 'bolder', color: '#ff2625'}}>{name} {` `}</span>
                 is one of the best exercise to target your {target}. it will help you improve your mood and gain energy
             </Typography>
             {extraDetail.map((item) => (
@@ -36,7 +36,7 @@ const Detail = ( { exerciseDetail }) => {
                         <img src={item.icon} alt ={bodyPart} style={{ width: '50px', height: '50px'}}/>
                     </Button> 
                     <Typography textTransform = 'capitalize' variant='h5'>
-                        {item.name}
+                    {item.name}
                     </Typography>
                 </Stack>
             ))}
