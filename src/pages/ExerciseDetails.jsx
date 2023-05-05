@@ -6,9 +6,6 @@ import { exerciseOptions, fetchData, youtubeOptions } from '../utils/fetchData'
 import Detail from '../components/Detail'
 import ExerciseVideos from '../components/ExerciseVideos'
 import SimilarExercises from '../components/SimilarExercises'
-import { Co2Sharp } from '@mui/icons-material'
-
-
 
 
 const ExerciseDetails = () => {
@@ -16,6 +13,8 @@ const ExerciseDetails = () => {
   const [exerciseDetail, setExerciseDetail] = useState({})
   const { id } = useParams()
   const [exerciseVideos, setExerciseVideos] = useState([])
+  const [targetMuscleExercises, setTargetMuscleExercises] = useState([])
+  const [equipmentExercises, setEquipmentExercises] = useState([])
 
 useEffect(() => {
 const fetchExercisesData = async () => {
@@ -27,6 +26,13 @@ const fetchExercisesData = async () => {
 
   const exerciseVideosData = await fetchData(`${youtubeSearchUrl}/search?query=${exerciseDetailData.name}`, youtubeOptions)
   setExerciseVideos(exerciseVideosData.contents)
+
+  const targetMuscleExercisesData = await fetchData(`${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`, exerciseOptions)
+  setTargetMuscleExercises(targetMuscleExercisesData)
+  console.log(targetMuscleExercises)
+
+  const equipmentExercisesData = await fetchData(`${exerciseDbUrl}/exercises/equipment/${exerciseDetailData.equipment}`, exerciseOptions)
+  setEquipmentExercises(equipmentExercisesData)
 }
 fetchExercisesData()
 }, [id])
@@ -36,7 +42,6 @@ fetchExercisesData()
     <Box>
       <Detail exerciseDetail={exerciseDetail} />
       <ExerciseVideos exerciseVideos={exerciseVideos} name={exerciseDetail.name} />
-      <SimilarExercises />
     </Box>
   )
 }
